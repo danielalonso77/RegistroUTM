@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'inicio/css/bootstrap.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'inicio/css/londinium-theme.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'inicio/css/styles.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'inicio/css/icons.css'%}" type="text/css">
+    <title>Registro</title>
+    <style>
+        
+        
+        .sidebar {
+          height: 100%;
+          width: 250px;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #fff;
+          overflow-x: hidden;
+          padding-top: 16px;
+        }
+        
+        .sidebar a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          
+          font-size: 20px;
+          color: #111;
+          display: block;
+        }
+        
+        .sidebar a:hover {
+            color: green;
+        }
+        
+        .main {
+          margin-left: 160px; /* Same as the width of the sidenav */
+          padding: 0px 10px;
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidebar {padding-top: 15px;}
+          .sidebar a {font-size: 18px;}
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- Barra de menú -->
+		<div class="sidebar">
+			<div class="sidebar align-content-center">
+                <a href="{%url 'index'%}" >   
+                    <img src="{%static 'inicio/images/utm_1.jpeg' %}">
+                </a>
+				<div class="user-menu dropdown ">
+                   
+                        <div class="user-menu-dropdown">
+                            
+                            <img src="{%static 'inicio/images/materiales.png' %}" width="50%"  >
+                        </div>
+                    
+                </div>
+				{% block menu %}
+                <li><a href="{% url 'Registro'%}">Materiales</a></li>
+                <li><a href="{%url 'Formulario'%}">Registrate</a></li>
+                <li><a href="{% url 'principal'%}">Registro</a></li>	
+                {% endblock %}
+				<!-- /Fin menú -->
+			</div>
+		</div>
+		<!-- /sidebar -->
+<!-- Contenido Principal-->
+<div class="page-content">
+    <!--Encabezdo -->
+    <div class="page-header">
+        <div class="page-title">
+            <h3>Materiales</h3>
+           
+        </div>
+    </div>
+    <!-- /Encabezado-->
+
+	<!--barra de navegación-->
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li>
+				<a href="{% url 'principal'%}">
+					{%if request.path == '/' %}
+						Principal
+					{%else %}
+						Principal{{request.path}}
+					{%endif %}
+				</a>
+			</li>
+        </ul>
+    </div>
+
+     <!-- Tabla de Alumnos  -->
+     <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Carrera</th>
+                <th>Material </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for material in materiales%}
+                <tr>
+                    
+                    <td class='text-semibold' >{{material.nombre}}</td>
+                    <td class='muted'>{{material.carrera}} </td>
+                    <td class='muted'> {{material.material}} </td>
+                    <td class><a href='{% url "Editar" material.id %}' class='btn btn-success' >Editar</a></td>
+                    <td class><a href='{% url "Eliminar" material.id %}' class='btn btn-danger' >Eliminar</a></td>
+                </tr>
+            {%endfor%}
+        </tbody>
+
+    </table>
+
+
+<!--fin barra de navegación-->

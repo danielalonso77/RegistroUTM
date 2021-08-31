@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'inicio/css/bootstrap.min.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'inicio/css/londinium-theme.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'inicio/css/styles.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'inicio/css/icons.css'%}" type="text/css">
+    <title>{% block titulo %}  Registro {%endblock%}</title>
+    <style>
+        
+        
+        .sidebar {
+          height: 100%;
+          width: 250px;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #fff;
+          overflow-x: hidden;
+          padding-top: 16px;
+        }
+        
+        .sidebar a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          
+          font-size: 20px;
+          color: #111;
+          display: block;
+        }
+        
+        .sidebar a:hover {
+          color: green;
+        }
+        
+        .main {
+          margin-left: 160px; /* Same as the width of the sidenav */
+          padding: 0px 10px;
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidebar {padding-top: 15px;}
+          .sidebar a {font-size: 18px;}
+        }
+    </style>
+    
+</head>
+
+<body>
+    <!-- Barra de menú -->
+		<div class="sidebar">
+			<div class="sidebar align-content-center">
+                <a href="{%url 'index' %}" >   
+                    <img src="{%static 'inicio/images/utm_1.jpeg' %}">
+                </a>
+				<div class="user-menu dropdown ">
+                   
+                        <div class="user-menu-dropdown">
+                            
+                            <img src="{%static 'inicio/images/reg.jpg' %}" width="50%"  >
+                        </div>
+                    
+                </div>
+                {% block menu %}
+                            <li><a href="{% url 'Registro'%}">Materiales</a></li>
+                            <li><a href="{%url 'Formulario'%}">Registrate</a></li>	
+                            <li><a href="{% url 'principal'%}">Registro</a></li>
+				
+                {% endblock %}
+				<!-- /Fin menú -->
+			</div>
+		</div>
+		<!-- /sidebar -->
+<!-- Contenido Principal-->
+<div class="page-content bg-secondary">
+    <!--Encabezdo -->
+    <div class="page-header">
+        <div class="page-title">
+            <h3>Empleados</h3>
+           
+        </div>
+    </div>
+    <!-- /Encabezado-->
+
+	<!--barra de navegación-->
+    <div class="breadcrumb-line">
+        <ul class="breadcrumb">
+            <li>
+				<a href="{% url 'principal'%}">
+					{%if request.path == '/' %}
+						Principal
+					{%else %}
+						Principal{{request.path}}
+					{%endif %}
+				</a>
+			</li>
+        </ul>
+    </div>
+
+     <!-- Tabla de Alumnos  -->
+     <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Turno</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+                <tr>
+                    
+                    <td class='text-center' >
+                        {%if empleado.imagen%}
+                        <img src="{{ empleado.imagen.url }}" alt="pic" class="img-media">
+                        {%endif %}
+                    </td>
+                    
+                    <td class='text-semibold' >{{empleado.nombre}}</td>
+                    <td class='muted'>{{empleado.codigo_empleado}} </td>
+                    <td class='muted'> {{empleado.turno}} </td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+
+<!--fin barra de navegación-->
+
+
+</div>
+ 
+    
+    
+    
